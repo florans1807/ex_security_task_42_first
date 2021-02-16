@@ -5,43 +5,91 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import java.util.ArrayList;
-import java.util.List;
+import web.model.Role;
+import web.model.User;
+import web.service.UserServiceIn;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Controller
-//@RequestMapping("/")
+@RequestMapping("/")
 public class UserController {
 
-    @GetMapping("/")
-    public String getInfoForAllEmp() {
-        return "viewForAllEmp";
+    private final UserServiceIn userService;
+
+    @Autowired
+    public UserController(UserServiceIn userService) {
+        this.userService = userService;
     }
 
-    @GetMapping("/hr_info")
-    public String getInfoForHR() {
-        return "viewForHR";
+    /*@GetMapping("/login")
+    public String welcome() {
+
+    }*/
+
+    //1
+    @GetMapping("/user/{id}")
+    public String getUserInfo(@PathVariable("id") int id, Model model1) {
+        model1.addAttribute("user", userService.get(id));
+        return "user_info";
     }
 
-    @GetMapping("/manager_info")
-    public String getInfoForManagers() {
-        return "viewForManager";
+    //2
+    @GetMapping("/admin")
+    public String getAdminInfo(Model model) {
+        model.addAttribute("users", userService.getAll());
+        return "admin_info";
     }
 
-    /*@RequestMapping(value = "hello", method = RequestMethod.GET)
-    public String printWelcome(ModelMap model) {
-        List<String> messages = new ArrayList<>();
-        messages.add("Hello!");
-        messages.add("I'm Spring MVC-SECURITY application");
-        messages.add("5.2.0 version by sep'19 ");
-        model.addAttribute("messages", messages);
-        return "hello";
+    //3
+    @GetMapping("/admin/{id}")
+    public String show(@PathVariable("id") int id, Model model) {
+        model.addAttribute("user", userService.get(id));
+        return "show";
     }
 
-    @RequestMapping(value = "login", method = RequestMethod.GET)
-    public String loginPage() {
-        return "login";
+    //4
+    @GetMapping("/admin/{id}/edit")
+    public String edit(Model model1, @PathVariable("id") int id) {
+        model1.addAttribute("user", userService.get(id));
+        model1.addAttribute("allRoles", userService.getAllRoles());
+        return "edit";
     }
-*/
+
+
+    //5
+    @PostMapping("/admin")
+    public String update(@ModelAttribute("user") User user) {
+        userService.update(user);
+        return "redirect:/admin";
+    }
+
+    //6
+    @DeleteMapping("/admin/{id}")
+    public String delete(@PathVariable("id") int id) {
+        userService.delete(id);
+        return "redirect:/admin";
+    }
+
+    //7
+    @GetMapping("/admin/new")
+    public String newPerson(Model model) {
+        model.addAttribute("user", new User());
+        model.addAttribute("allRoles", userService.getAllRoles());
+        return "new";
+    }
+
+    //8
+    @PostMapping(value="/admin")
+    public String create(@ModelAttribute("user") User user
+            , @RequestParam("role") String[] roles) {
+
+        user.setRoles(userService.getSetRole(roles));
+        userService.add(user);
+        return "redirect:/admin";
+    }
+
 }
-
