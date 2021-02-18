@@ -19,22 +19,23 @@
     <input type="text" th:field="*{password}" id="password"/>
     <br/>
     <br/>
-    <!--<label for="editRoles">Enter role: </label>
+    <label for="editRoles">Enter role: </label>
     <br/>
     <select id="editRoles"  multiple size="2" name="role" th:required="true" class="form-control">
         <option th:each="role : ${allRoles}"
                 th:value="${role.getAuthority()}"
                 th:utext="${role.getAuthority()}">
         </option>
-    </select>-->
+    </select>
     <br/>
-    <label for="role1">Select role: </label>
+    <!--<label for="role1">Select role: </label>
     <br/>
     <select multiple size="2" id="role1" name="role1">
         <option th:each="role : ${allRoles}"
                 th:value="${role.id}"
                 th:text="${role.getAuthority()}"> Role name </option>
-    </select>
+    </select>-->
+
     <!--<select multiple size="2" name="role" th:required="true" class="form-control">
         <option th:each="role : ${allRoles}"
                 th:value="${role.getAuthority()}"

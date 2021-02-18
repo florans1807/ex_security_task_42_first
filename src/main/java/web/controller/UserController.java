@@ -47,18 +47,6 @@ public class UserController {
         return "show";
     }
 
-
-    //5
-    /*@PostMapping("/admin/{id}")
-    public String update(@ModelAttribute("user") User user, @RequestParam("role") String[] roles
-            , @RequestParam("id") int id, Model model) {
-        user.setId(id);
-        //user.setRoles(userService.getSetRole(roles));
-        userService.update(user);
-        model.addAttribute("user", user);
-        return "redirect:/admin";
-    }*/
-
     //6
     @DeleteMapping("/admin/{id}")
     public String delete(@PathVariable("id") int id) {
