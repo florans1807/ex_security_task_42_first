@@ -13,6 +13,7 @@
         <th>Surname</th>
         <th>Username</th>
         <th>Password</th>
+        <th>Roles</th>
         <th colspan="2">Operations</th>
     </tr>
 
@@ -22,7 +23,11 @@
         <td th:utext="${user.surname}">Surname</td>
         <td th:utext="${user.username}">Username</td>
         <td th:utext="${user.password}">Password</td>
+        <td th:utext="${user.testToGetRole(user.getAuthorities()).toString()}">Roles</td>
         <td><a th:href="@{/admin/{id}/edit(id=${user.getId()})}">Edit</a></td>
+        <td><form th:method="DELETE" th:action="@{/admin/{id}(id=${user.getId()})}">
+            <input type="submit" value="Delete"/>
+        </form></td>
 
     </tr>
 
@@ -31,6 +36,7 @@
 
 <br>
 <hr/>
+<a href="/login">Logout</a>
 
 
 

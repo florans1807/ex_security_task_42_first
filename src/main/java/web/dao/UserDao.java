@@ -15,4 +15,5 @@ public interface UserDao {
     List<Role> getAllRoles();
     Role findRoleByName(String role);
     Set<Role> getSetRole(String[] roles);
+    Set<Role> getRolesByUser(User user);
 }

@@ -5,7 +5,7 @@
     <title></title>
 </head>
 <body>
-<form th:method="POST" th:action="@{/admin}" th:object="${user}">
+<form th:method="POST" th:action="@{/admin/add}" th:object="${user}">
     <label for="name">Enter name: </label>
     <input type="text" th:field="*{name}" id="name"/>
     <label for="surname">Enter surname: </label>
@@ -14,6 +14,10 @@
     <input type="text" th:field="*{username}" id="username"/>
     <label for="password">Enter password: </label>
     <input type="text" th:field="*{password}" id="password"/>
+    <br/>
+    <label for="active">User is active: </label>
+    <input type="checkbox" th:field="*{active}" id="active"/>
+    <br/>
     <br/>
     <label for="roles">Select roles</label>
     <br/>
@@ -26,9 +30,21 @@
         </option>
     </select>
     <br/>
+    <select multiple size="2" name="role" th:required="true" class="form-control">
+        <option
+                th:each="role : ${allRoles}"
+                th:value="${role.getAuthority()}"
+                th:text="${role.getAuthority()}"
+                th:selected="${role.getAuthority() == 'ROLE_USER'}">
+        </option>
+    </select>
     <br/>
     <input type="submit" value="Create!"/>
 </form>
+
+<br>
+<hr/>
+<a href="/login">Logout</a>
 
 </body>
 </html>

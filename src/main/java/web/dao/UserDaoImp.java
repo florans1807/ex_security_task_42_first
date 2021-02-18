@@ -1,5 +1,7 @@
 package web.dao;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 import web.model.Role;
 import web.model.User;
@@ -16,6 +18,9 @@ public class UserDaoImp implements UserDao {
     @PersistenceContext
     private EntityManager em;
 
+    //@Autowired
+    //BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @Override
     public List<User> getAll() {
         TypedQuery<User> typedQuery = em.createQuery("from User", User.class);
@@ -29,6 +34,7 @@ public class UserDaoImp implements UserDao {
 
     @Override
     public void add(User user) {
+        //user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         em.persist(user);
     }
 
@@ -68,4 +74,10 @@ public class UserDaoImp implements UserDao {
         }
         return roleSet;
     }
+
+    @Override
+    public Set<Role> getRolesByUser(User user) {
+        return user.getAuthorities();
+    }
+
 }

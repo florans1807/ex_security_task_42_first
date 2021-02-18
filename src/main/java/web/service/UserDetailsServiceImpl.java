@@ -11,6 +11,7 @@ import web.model.User;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -39,8 +40,8 @@ public class UserDetailsServiceImpl implements UserServiceIn, UserDetailsService
     }
 
     @Override
-    public void update(User updatedUser) {
-        userDao.update(updatedUser);
+    public void update(User user) {
+        userDao.update(user);
     }
 
     @Override
@@ -68,5 +69,9 @@ public class UserDetailsServiceImpl implements UserServiceIn, UserDetailsService
         return userDao.getSetRole(roles);
     }
 
+    @Override
+    public Set<Role> getRolesByUser(User user) {
+        return userDao.getRolesByUser(user);
+    }
 
 }

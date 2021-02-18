@@ -1,6 +1,7 @@
 package web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -25,15 +26,10 @@ public class UserController {
         this.userService = userService;
     }
 
-    /*@GetMapping("/login")
-    public String welcome() {
-
-    }*/
-
     //1
-    @GetMapping("/user/{id}")
-    public String getUserInfo(@PathVariable("id") int id, Model model1) {
-        model1.addAttribute("user", userService.get(id));
+    @GetMapping("/user")
+    public String getUserInfo(Model model1, Authentication authentication) {
+        model1.addAttribute("user", userService.loadUserByUsername(authentication.getName()));
         return "user_info";
     }
 
@@ -51,21 +47,17 @@ public class UserController {
         return "show";
     }
 
-    //4
-    @GetMapping("/admin/{id}/edit")
-    public String edit(Model model1, @PathVariable("id") int id) {
-        model1.addAttribute("user", userService.get(id));
-        model1.addAttribute("allRoles", userService.getAllRoles());
-        return "edit";
-    }
-
 
     //5
-    @PostMapping("/admin")
-    public String update(@ModelAttribute("user") User user) {
+    /*@PostMapping("/admin/{id}")
+    public String update(@ModelAttribute("user") User user, @RequestParam("role") String[] roles
+            , @RequestParam("id") int id, Model model) {
+        user.setId(id);
+        //user.setRoles(userService.getSetRole(roles));
         userService.update(user);
+        model.addAttribute("user", user);
         return "redirect:/admin";
-    }
+    }*/
 
     //6
     @DeleteMapping("/admin/{id}")
@@ -82,13 +74,35 @@ public class UserController {
         return "new";
     }
 
-    //8
-    @PostMapping(value="/admin")
-    public String create(@ModelAttribute("user") User user
-            , @RequestParam("role") String[] roles) {
+    //4
+    @GetMapping("/admin/{id}/edit")
+    public String edit(Model model1, @PathVariable("id") int id) {
+        model1.addAttribute("user", userService.get(id));
+        model1.addAttribute("allRoles", userService.getAllRoles());
+        return "edit";
+    }
 
+    //8
+    @PostMapping(value="/admin/add")
+    public String create(@ModelAttribute("user") User user
+            , @RequestParam("role") String[] roles
+            , @RequestParam(value = "active", required = false) boolean active) {
+
+        user.setActive(active);
         user.setRoles(userService.getSetRole(roles));
         userService.add(user);
+        return "redirect:/admin";
+    }
+
+
+    @PostMapping("/admin/{id}")
+    public String update(@ModelAttribute("user") User user
+            , @RequestParam("role") String[] roles
+            , @RequestParam(value = "active", required = false) boolean active) {
+
+        user.setActive(active);
+        user.setRoles(userService.getSetRole(roles));
+        userService.update(user);
         return "redirect:/admin";
     }
 

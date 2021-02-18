@@ -22,7 +22,7 @@
         <td th:utext="${user.surname}">Surname</td>
         <td th:utext="${user.username}">Username</td>
         <td th:utext="${user.password}">Password</td>
-
+        <td th:utext="${user.testToGetRole(user.getAuthorities()).toString()}">Roles</td>
     </tr>
 
 
@@ -30,7 +30,7 @@
 
 <br>
 <hr/>
-
+<a href="/login">Logout</a>
 
 
 </body>
