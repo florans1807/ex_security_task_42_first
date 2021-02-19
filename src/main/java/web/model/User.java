@@ -76,10 +76,6 @@ public class User implements UserDetails {
         return roles;
     }
 
-   /* public void setRoles(String roles) {
-        this.roles = new HashSet<>();
-    }*/
-
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }

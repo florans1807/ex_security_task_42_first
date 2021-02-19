@@ -28,20 +28,12 @@
         </option>
     </select>
     <br/>
-    <!--<label for="role1">Select role: </label>
-    <br/>
-    <select multiple size="2" id="role1" name="role1">
-        <option th:each="role : ${allRoles}"
-                th:value="${role.id}"
-                th:text="${role.getAuthority()}"> Role name </option>
-    </select>-->
-
-    <!--<select multiple size="2" name="role" th:required="true" class="form-control">
+    <select multiple size="2" name="role" th:required="true" class="form-control">
         <option th:each="role : ${allRoles}"
                 th:value="${role.getAuthority()}"
                 th:utext="${role.getAuthority()}">
         </option>
-    </select>-->
+    </select>
     <br/>
     <input type="submit" value="Update!"/>
     <br/>
