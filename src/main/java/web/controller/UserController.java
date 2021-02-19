@@ -73,10 +73,8 @@ public class UserController {
     //8
     @PostMapping(value="/admin/add")
     public String create(@ModelAttribute("user") User user
-            , @RequestParam("role") String[] roles
-            , @RequestParam(value = "active", required = false) boolean active) {
+            , @RequestParam("role") String[] roles) {
 
-        user.setActive(active);
         user.setRoles(userService.getSetRole(roles));
         userService.add(user);
         return "redirect:/admin";
@@ -85,10 +83,8 @@ public class UserController {
 
     @PostMapping("/admin/{id}")
     public String update(@ModelAttribute("user") User user
-            , @RequestParam("role") String[] roles
-            , @RequestParam(value = "active", required = false) boolean active) {
+            , @RequestParam("role") String[] roles) {
 
-        user.setActive(active);
         user.setRoles(userService.getSetRole(roles));
         userService.update(user);
         return "redirect:/admin";

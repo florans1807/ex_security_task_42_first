@@ -17,7 +17,7 @@ public class Role implements GrantedAuthority {
     @Column(name = "authority")
     private String role;
 
-    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_role"
             , joinColumns = @JoinColumn(name = "role_id")

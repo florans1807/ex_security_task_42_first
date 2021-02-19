@@ -40,7 +40,7 @@ public class UserDaoImp implements UserDao {
 
     @Override
     public void update(User user) {
-        delete(user.getId());
+        //delete(user.getId());
         em.merge(user);
     }
 

@@ -27,10 +27,7 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "enabled")
-    private boolean active;
-
-    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_role"
             , joinColumns = @JoinColumn(name = "user_id")
@@ -87,13 +84,6 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
 
     @Override
     public String getPassword() {
@@ -130,7 +120,7 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return active;
+        return true;
     }
 
     public int getId() {
