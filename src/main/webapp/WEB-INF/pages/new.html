@@ -28,14 +28,6 @@
         </option>
     </select>
     <br/>
-    <select multiple size="2" name="role" th:required="true" class="form-control">
-        <option
-                th:each="role : ${allRoles}"
-                th:value="${role.getAuthority()}"
-                th:text="${role.getAuthority()}"
-                th:selected="${role.getAuthority() == 'ROLE_USER'}">
-        </option>
-    </select>
     <br/>
     <input type="submit" value="Create!"/>
 </form>
