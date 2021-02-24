@@ -16,11 +16,6 @@ public class UserDaoImp implements UserDao {
 
     @PersistenceContext
     private EntityManager em;
-    private final PasswordEncoder passwordEncoder;
-
-    public UserDaoImp(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-    }
 
     @Override
     public List<User> getAll() {
@@ -35,13 +30,11 @@ public class UserDaoImp implements UserDao {
 
     @Override
     public void add(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
         em.persist(user);
     }
 
     @Override
     public void update(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
         em.merge(user);
     }
 
