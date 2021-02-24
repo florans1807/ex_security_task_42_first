@@ -9,7 +9,6 @@ public interface UserServiceIn {
     List<User> getAll();
     User get(int id);
     void add(User user);
-    //void update(User updatedUser, String password);
     void update(User updatedUser);
     void delete(int id);
     User loadUserByUsername(String login);
